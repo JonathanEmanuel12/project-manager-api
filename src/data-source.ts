@@ -11,7 +11,7 @@ export const AppDataSource = new DataSource({
     database: "project-manager",
     synchronize: true,
     logging: false,
-    entities: [User],
+    entities: ['src/entity/*.ts'],
     migrations: [],
     subscribers: [],
 })
