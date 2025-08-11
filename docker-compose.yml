@@ -1,0 +1,36 @@
+services:
+  db:
+    container_name: 'project-db'
+    image: postgres
+    volumes:
+      - storage_db:/var/lib/postgres/data
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_DATABASE}
+    networks:
+      - project-net
+  app:
+    build: .
+    container_name: 'project-api'
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
+    volumes:
+      - .:/app
+      - /app/node_modules
+    depends_on:
+      - db
+    networks:
+      - project-net
+
+
+volumes:
+  storage_db:
+  
+networks:
+  project-net:
+    driver: bridge
