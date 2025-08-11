@@ -1,6 +1,7 @@
 import 'dotenv/config'
 import express from 'express'
 import { AppDataSource } from "./data-source"
+import AuthRoutes from './routes/AuthRoutes'
 // import { User } from "./entity/User"
 
 AppDataSource.initialize().then(async () => {
@@ -25,6 +26,8 @@ AppDataSource.initialize().then(async () => {
     app.get('/', (req, res) => {
         res.send('Hello World!')
     })
+
+    app.use('/auth', AuthRoutes);
 
     return app.listen(process.env.PORT || 3000, () => {
         console.log('Server is running on port 3000')

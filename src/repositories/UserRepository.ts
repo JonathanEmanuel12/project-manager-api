@@ -18,7 +18,7 @@ export class UserRepository {
     return this.repo.findOneBy({ email })
   }
 
-  async create(userData: User): Promise<User> {
+  async create(userData: Omit<User, 'id' | 'projects'>): Promise<User> {
     return this.repo.save(this.repo.create(userData))
   }
 
