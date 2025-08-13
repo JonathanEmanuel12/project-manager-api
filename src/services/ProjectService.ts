@@ -8,7 +8,7 @@ export default class ProjectService {
     constructor(
         private readonly projectRepository: ProjectRepository,
         private readonly userRepository: UserRepository
-    ) {}
+    ) { }
 
     public async create(projectDto: CreateProjectDto, userId: number): Promise<Project | HttpError> {
         const user = await this.userRepository.get(userId)
@@ -20,5 +20,15 @@ export default class ProjectService {
         const project = await this.projectRepository.get(projectId)
         if (!project) return new HttpError(404, 'Project not found')
         await this.projectRepository.update(project, projectDto)
+    }
+
+    public async index(userId: number, page: number, perPage: number): Promise<Project[]> {
+        return await this.projectRepository.index(userId, page, perPage)
+    }
+
+    public async show(projectId: number): Promise<Project | HttpError> {
+        const project = await this.projectRepository.get(projectId)
+        if (!project) return new HttpError(404, 'Project not found')
+        return project
     }
 }

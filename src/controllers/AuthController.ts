@@ -6,13 +6,9 @@ class AuthController {
     private authService: AuthService
     constructor() {
         this.authService = new AuthService(new UserRepository())
-        console.log('11111111', this)
-
     }
 
     public async register(req: Request, res: Response) {
-        console.log('asdasd', this)
-
         const userDto = req.body
         const data = await this.authService.register(userDto)
         return res.status(201).json(data);

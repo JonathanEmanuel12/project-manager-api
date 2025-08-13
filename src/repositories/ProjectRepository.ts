@@ -10,12 +10,24 @@ export class ProjectRepository {
         this.repo = AppDataSource.getRepository(Project)
     }
 
-    async get(id: number): Promise<Project | null> {
-        return this.repo.findOneBy({ id })
+    async get(projectId: number): Promise<Project | null> {
+        return await this.repo.findOne({ 
+            where: { id: projectId },
+            relations: ['tasks', 'gitRepositories']
+        })
+    }
+
+    async index(userId: number, page: number, perPage: number): Promise<Project[]> {
+        return await this.repo.find({
+            where: { user: { id: userId } },
+            take: perPage,
+            skip: (page - 1) * perPage,
+            order: { id: 'asc' }
+        })
     }
 
     async create(projectData: Pick<Project, 'name' | 'user'>): Promise<Project> {
-        return this.repo.save(this.repo.create(projectData))
+        return await this.repo.save(this.repo.create(projectData))
     }
 
     async update(project: Project, projectData: Partial<Pick<Project, 'name'>>): Promise<void> {
