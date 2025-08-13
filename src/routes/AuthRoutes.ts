@@ -1,11 +1,9 @@
 import { Router } from 'express';
-import { register, login } from '../controllers/AuthController';
-// import { authMiddleware } from '../middlewares/AuthMiddleware';
+import AuthController from '../controllers/AuthController';
 
 const router = Router();
 
-router.post('/login', login);        // pública
-router.post('/register', register);        // pública
-// router.get('/profile', authMiddleware, getProfile); // protegida
+router.post('/login', AuthController.login.bind(AuthController))
+router.post('/register', AuthController.register.bind(AuthController))
 
 export default router;
