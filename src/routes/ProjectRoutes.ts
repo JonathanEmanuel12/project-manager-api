@@ -6,7 +6,7 @@ const router = Router();
 
 router.post('/', authMiddleware, ProjectController.create.bind(ProjectController))
 router.put('/:projectId', authMiddleware, ProjectController.update.bind(ProjectController))
-router.get('/', authMiddleware, ProjectController.index.bind(ProjectController))
-router.get('/:projectId', authMiddleware, ProjectController.show.bind(ProjectController))
+router.get('/', ProjectController.index.bind(ProjectController))
+router.get('/:projectId', ProjectController.show.bind(ProjectController))
 
 export default router;

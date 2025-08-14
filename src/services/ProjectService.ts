@@ -16,9 +16,12 @@ export default class ProjectService {
         return await this.projectRepository.create({ ...projectDto, user })
     }
 
-    public async update(projectDto: UpdateProjectDto, projectId: number): Promise<void | HttpError> {
+    public async update(projectDto: UpdateProjectDto, projectId: number, userId: number): Promise<void | HttpError> {
         const project = await this.projectRepository.get(projectId)
-        if (!project) return new HttpError(404, 'Project not found')
+
+        if (project === null) return new HttpError(404, 'Project not found')
+        if (project.user.id !== userId) return new HttpError(403, 'User is not authorized')        
+        
         await this.projectRepository.update(project, projectDto)
     }
 
@@ -30,5 +33,14 @@ export default class ProjectService {
         const project = await this.projectRepository.get(projectId)
         if (!project) return new HttpError(404, 'Project not found')
         return project
+    }
+
+    public async delete(projectId: number, userId: number): Promise<void | HttpError> {
+        const project = await this.projectRepository.get(projectId)
+        
+        if (!project) return new HttpError(404, 'Project not found')
+        if (project.user.id !== userId) return new HttpError(403, 'User is not authorized')
+        
+        await this.projectRepository.delete(projectId)
     }
 }
