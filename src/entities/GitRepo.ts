@@ -12,6 +12,9 @@ export class GitRepo {
     @Column()
     url: string
 
+    @Column()
+    owner: string
+
     @ManyToOne(() => Project, (project) => project.gitRepos)
     project: Project
 }

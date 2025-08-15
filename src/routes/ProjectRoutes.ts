@@ -10,5 +10,4 @@ router.get('/', ProjectController.index.bind(ProjectController))
 router.get('/:projectId', ProjectController.show.bind(ProjectController))
 router.delete('/:projectId', authMiddleware, ProjectController.delete.bind(ProjectController))
 
-
 export default router;
