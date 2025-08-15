@@ -20,8 +20,11 @@ services:
     env_file:
       - .env
     volumes:
-      - .:/app
-      - /app/node_modules
+      - ./src:/app/src
+      - ./package.json:/app/package.json
+      - ./tsconfig.json:/app/tsconfig.json
+      - ./entrypoint.sh:/app/entrypoint.sh
+
     depends_on:
       - db
     networks:

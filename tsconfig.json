@@ -12,9 +12,8 @@
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
         "sourceMap": true,
-        "noImplicitAny": true,
         "strictPropertyInitialization": false,
-        "esModuleInterop": true
+        "esModuleInterop": true,
     },
     "include": [
         "src/**/*"

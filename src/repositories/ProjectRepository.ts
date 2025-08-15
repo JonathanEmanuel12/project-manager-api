@@ -13,7 +13,7 @@ export class ProjectRepository {
     async get(projectId: number): Promise<Project | null> {
         return await this.repo.findOne({ 
             where: { id: projectId },
-            relations: ['tasks', 'gitRepositories', 'user']
+            relations: ['tasks', 'gitRepos', 'user']
         })
     }
 

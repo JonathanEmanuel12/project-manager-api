@@ -2,7 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm"
 import { Project } from "./Project"
 
 @Entity()
-export class GitRepository {
+export class GitRepo {
     @PrimaryGeneratedColumn()
     id: number
 
@@ -12,6 +12,6 @@ export class GitRepository {
     @Column()
     url: string
 
-    @ManyToOne(() => Project, (project) => project.gitRepositories)
+    @ManyToOne(() => Project, (project) => project.gitRepos)
     project: Project
 }

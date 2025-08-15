@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany } from "typeorm"
 import { User } from "./User"
 import { Task } from "./Task"
-import { GitRepository } from "./GitRepository"
+import { GitRepo } from "./GitRepo"
 
 @Entity()
 export class Project {
@@ -17,6 +17,6 @@ export class Project {
     @OneToMany(() => Task, (task) => task.project)
     tasks: Task[]
 
-    @OneToMany(() => GitRepository, (gitRepository) => gitRepository.project)
-    gitRepositories: GitRepository[]
+    @OneToMany(() => GitRepo, (gitRepo) => gitRepo.project)
+    gitRepos: GitRepo[]
 }

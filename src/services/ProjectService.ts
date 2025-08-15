@@ -38,6 +38,8 @@ export default class ProjectService {
     public async delete(projectId: number, userId: number): Promise<void | HttpError> {
         const project = await this.projectRepository.get(projectId)
         
+        // console.log(project, userId)
+
         if (!project) return new HttpError(404, 'Project not found')
         if (project.user.id !== userId) return new HttpError(403, 'User is not authorized')
         
