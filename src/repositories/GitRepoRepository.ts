@@ -14,7 +14,7 @@ export class GitRepoRepository {
         return await this.repo.save(this.repo.create(gitRepoData))
     }
 
-    async deleteByProjectId(projectId: number): Promise<void> {
-        await this.repo.delete({ project: { id: projectId } })
+    async deleteByProjectAndOwner(projectId: number, username: string): Promise<void> {
+        await this.repo.delete({ project: { id: projectId }, owner: username })
     }
 }

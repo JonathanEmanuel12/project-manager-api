@@ -1,10 +1,10 @@
 # Awesome Project Build with TypeORM
 
-Steps to run this project:
+### Instruções para rodar o projeto:
 
-1. Run `npm i` command
-2. Setup database settings inside `data-source.ts` file
-3. Run `npm start` command
+ - git clone
+ - criar .env e pegar as variáveis de .env.example
+ - docker compose up --build
 
 
 # chmod +x entrypoint.sh

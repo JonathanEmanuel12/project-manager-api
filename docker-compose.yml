@@ -24,9 +24,20 @@ services:
       - ./package.json:/app/package.json
       - ./tsconfig.json:/app/tsconfig.json
       - ./entrypoint.sh:/app/entrypoint.sh
-
     depends_on:
       - db
+      - redis
+    networks:
+      - project-net
+
+  redis:
+    container_name: 'project-redis'
+    image: redis:8.2
+    command: redis-server --requirepass ${REDIS_PASSWORD}
+    ports:
+      - "6379:6379"
+    environment:
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
     networks:
       - project-net
 

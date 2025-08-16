@@ -17,7 +17,7 @@ export default class ProjectService {
         const gitRepoDtos = await this.getGitRepoDtos(username)
         if (gitRepoDtos instanceof Error) return gitRepoDtos
 
-        await this.gitRepoRepository.deleteByProjectId(projectId)
+        await this.gitRepoRepository.deleteByProjectAndOwner(projectId, username)
 
         return await Promise.all(gitRepoDtos.map(async (gitRepoDto) => {
             const { name, html_url: url, owner: { login: owner } } = gitRepoDto

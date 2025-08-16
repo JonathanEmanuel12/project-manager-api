@@ -11,6 +11,7 @@ AppDataSource.initialize().then(async () => {
     app.use(express.json())
 
     //todo cors
+ 
 
     app.use('/auth', AuthRoutes);
     app.use('/projects', ProjectRoutes);
