@@ -1,5 +1,6 @@
 import 'dotenv/config'
 import express from 'express'
+import cors from 'cors'
 import { AppDataSource } from "./data-source"
 import AuthRoutes from './routes/AuthRoutes'
 import ProjectRoutes from './routes/ProjectRoutes'
@@ -9,9 +10,7 @@ import GitRepoRoutes from './routes/GitRepoRoutes'
 AppDataSource.initialize().then(async () => {
     const app = express()
     app.use(express.json())
-
-    //todo cors
- 
+    app.use(cors())
 
     app.use('/auth', AuthRoutes);
     app.use('/projects', ProjectRoutes);
