@@ -1,5 +1,3 @@
-# Awesome Project Build with TypeORM
-
 ### Instruções para rodar o projeto:
 * Necessário docker instalado
 
