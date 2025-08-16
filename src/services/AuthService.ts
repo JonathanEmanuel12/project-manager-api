@@ -8,7 +8,7 @@ export default class AuthService {
     constructor(private userRepository: UserRepository) {}
 
     public async register({ password, ...userDto }: RegisterUserDto): Promise<CreatedUserDto> {
-        const hashedPassword = await bcrypt.hash(password, 10);
+        const hashedPassword = await bcrypt.hash(password, 10)
         const { password: savedPassword, ...user } = await this.userRepository.create({ password: hashedPassword, ...userDto })
     
         const token = jwt.sign(
