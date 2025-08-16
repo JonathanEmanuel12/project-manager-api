@@ -15,7 +15,6 @@ class TaskController {
         const { success, error, data: taskDto } = createTaskValidator.safeParse(req.body)
 
         if(success !== true) return res.status(422).json(error)
-        console.log(projectId)
         const data = await this.taskService.create(taskDto, Number(projectId))
         return res.status(201).json(data)
     }

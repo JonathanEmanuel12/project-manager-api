@@ -11,7 +11,6 @@ export function cacheMiddleware(expSeconds = 600) {
         const cachedData = await RedisService.get(cacheKey)
 
         if (cachedData) {
-            console.log(`Cache key: ${cacheKey}`)
             return res.status(200).json(JSON.parse(cachedData))
         }
 

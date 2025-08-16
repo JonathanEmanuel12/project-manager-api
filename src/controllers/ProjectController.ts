@@ -1,9 +1,9 @@
-import { Request, Response } from 'express';
+import e, { Request, Response } from 'express';
 // import '../@types/express';
 import { UserRepository } from '../repositories/UserRepository';
 import ProjectService from '../services/ProjectService';
 import { ProjectRepository } from '../repositories/ProjectRepository';
-import { createProjectValidator, updateProjectValidator } from '../validators/ProjectValidator';
+import { createProjectValidator, paginateValidator, updateProjectValidator } from '../validators/ProjectValidator';
 
 class ProjectController {
     private projectService: ProjectService
@@ -23,7 +23,6 @@ class ProjectController {
     public async update(req: Request, res: Response, next: Function) {
         const { projectId } = req.params
         const { success, error, data: projectDto } = updateProjectValidator.safeParse(req.body)
-        // console.log('asdasd', res.locals)
 
         if(success !== true) return res.status(422).json(error)
 
@@ -33,9 +32,12 @@ class ProjectController {
     }
 
     public async index(req: Request, res: Response) {
-        const { page = 1, perPage = 10 } = req.query
+        const { success, error, data: paginationDto } = paginateValidator.safeParse(req.query)
+        if(success !== true) return res.status(422).json(error)
 
-        const data = await this.projectService.index(res.locals.userId, Number.parseInt(page as any), Number.parseInt(perPage as any))
+        const { page = 1, perPage = 10 } = paginationDto
+
+        const data = await this.projectService.index(res.locals.userId, page, perPage)
         return res.status(200).json({ meta: { page, perPage }, data })
     }
 
@@ -49,7 +51,6 @@ class ProjectController {
 
     public async delete(req: Request, res: Response, next: Function) {
         const { projectId } = req.params
-// console.log('asdasd', res.locals)
         const data = await this.projectService.delete(Number(projectId), res.locals.userId)
         if (data instanceof Error) return next(data)
         return res.status(200).json(data)
